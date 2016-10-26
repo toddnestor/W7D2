@@ -70,6 +70,10 @@
 	
 	var apiUtils = _interopRequireWildcard(_step_api_util);
 	
+	var _step_actions = __webpack_require__(300);
+	
+	var StepActions = _interopRequireWildcard(_step_actions);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -80,6 +84,7 @@
 	  window.store = store;
 	  window.createTodo = _todo_actions.createTodo;
 	  window.apiutils = apiUtils;
+	  window.StepActions = StepActions;
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 	});
 
@@ -22436,10 +22441,15 @@
 	
 	var _todos_reducer2 = _interopRequireDefault(_todos_reducer);
 	
+	var _steps_reducer = __webpack_require__(301);
+	
+	var _steps_reducer2 = _interopRequireDefault(_steps_reducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = (0, _redux.combineReducers)({
-	  todos: _todos_reducer2.default
+	  todos: _todos_reducer2.default,
+	  steps: _steps_reducer2.default
 	});
 
 /***/ },
@@ -22655,6 +22665,13 @@
 	  var keys = Object.keys(state.todos);
 	  return keys.map(function (key) {
 	    return state.todos[key];
+	  });
+	};
+	
+	var allSteps = exports.allSteps = function allSteps(state, todoID) {
+	  var keys = Object.keys(state.steps[todoID]);
+	  return keys.map(function (key) {
+	    return state.steps[todoID][key];
 	  });
 	};
 
@@ -26616,6 +26633,105 @@
 	    error: error
 	  });
 	};
+
+/***/ },
+/* 300 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var REQUEST_STEPS = exports.REQUEST_STEPS = 'REQUEST_STEPS';
+	var RECEIVE_STEPS = exports.RECEIVE_STEPS = 'RECEIVE_STEPS';
+	var CREATE_STEP = exports.CREATE_STEP = 'CREATE_STEP';
+	var UPDATE_STEP = exports.UPDATE_STEP = 'UPDATE_STEP';
+	var RECEIVE_STEP = exports.RECEIVE_STEP = 'RECEIVE_STEP';
+	var DESTROY_STEP = exports.DESTROY_STEP = 'DESTROY_STEP';
+	var REMOVE_STEP = exports.REMOVE_STEP = 'REMOVE_STEP';
+	
+	var requestSteps = exports.requestSteps = function requestSteps(todo) {
+	  return {
+	    type: REQUEST_STEPS,
+	    todo: todo
+	  };
+	};
+	
+	var receiveSteps = exports.receiveSteps = function receiveSteps(steps) {
+	  return {
+	    type: RECEIVE_STEPS,
+	    steps: steps
+	  };
+	};
+	
+	var createStep = exports.createStep = function createStep(todo, step) {
+	  return {
+	    type: CREATE_STEP,
+	    todo: todo,
+	    step: step
+	  };
+	};
+	
+	var updateStep = exports.updateStep = function updateStep(step) {
+	  return {
+	    type: UPDATE_STEP,
+	    step: step
+	  };
+	};
+	
+	var receiveStep = exports.receiveStep = function receiveStep(step) {
+	  return {
+	    type: RECEIVE_STEP,
+	    step: step
+	  };
+	};
+	
+	var destroyStep = exports.destroyStep = function destroyStep(step) {
+	  return {
+	    type: DESTROY_STEP,
+	    step: step
+	  };
+	};
+	
+	var removeStep = exports.removeStep = function removeStep(todo, step) {
+	  return {
+	    type: REMOVE_STEP,
+	    todo: todo,
+	    step: step
+	  };
+	};
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _step_actions = __webpack_require__(300);
+	
+	var _merge = __webpack_require__(209);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var StepsReducer = function StepsReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  var duped = (0, _merge2.default)({}, state);
+	  switch (action.type) {
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = StepsReducer;
 
 /***/ }
 /******/ ]);
